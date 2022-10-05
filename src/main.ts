@@ -1,23 +1,44 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
+import './style.css';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const drawImage = async ({
+  ctx,
+  imgPath,
+}: {
+  ctx: CanvasRenderingContext2D;
+  imgPath: string;
+}): Promise<void> => {
+  const img = new Image();
+  img.src = imgPath;
+  return new Promise((resolve) => {
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+      resolve();
+    };
+  });
+};
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const ctxs = Array.from(
+  document.querySelectorAll('canvas') as NodeListOf<HTMLCanvasElement>
+).map((canvas) => canvas.getContext('2d')!);
+
+const size = 512;
+
+await drawImage({
+  ctx: ctxs[0],
+  imgPath: '/img1.jpg',
+});
+
+await drawImage({
+  ctx: ctxs[1],
+  imgPath: '/img2.jpg',
+});
+
+console.log(ctxs[0].getImageData(0, 0, size, size));
+// const img = ctxs[0].getImageData(0, 0, size, size);
+const img = new ImageData(
+  ctxs[0].getImageData(0, 0, size, size).data,
+  size,
+  size
+);
+
+ctxs[2].putImageData(img, 0, 0);
