@@ -26,20 +26,31 @@ const size = (document.querySelector('canvas') as HTMLCanvasElement).width;
 
 await drawImage({
   ctx: ctxs[0],
-  imgPath: '/img1.jpg',
+  imgPath: '/img1.png',
 });
 
 await drawImage({
   ctx: ctxs[1],
-  imgPath: '/img2.jpg',
+  imgPath: '/img2.png',
 });
 
 const img0 = ctxs[0].getImageData(0, 0, size, size);
 const img1 = ctxs[1].getImageData(0, 0, size, size);
 
+console.time('timer');
 for (let i = 0; i < img0.data.length; i++) {
   if ((i + 1) % 4 == 0) continue;
-  img0.data[i] = img0.data[i] ^ img1.data[i + 1];
+  const avg = img0.data[i] + img1.data[i + 1] / 2;
+  const abs = Math.abs(img0.data[i] - img1.data[i + 1]);
+  const xor = img0.data[i] ^ img1.data[i + 1];
+  const len = 10;
+  const random =
+    Array(len)
+      .fill('')
+      .map(() => (Math.random() * 255) | 0)
+      .reduce((a, b) => a + b) / len;
+  img0.data[i] = (avg + xor + abs + random) / 4;
 }
+console.timeEnd('timer');
 
 ctxs[2].putImageData(img0, 0, 0);
