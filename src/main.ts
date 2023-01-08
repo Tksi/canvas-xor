@@ -53,7 +53,7 @@ for (const selectEle of Array.from(
 )) {
   selectEle.addEventListener('change', async (e) => {
     const value = (e.target as HTMLSelectElement).value;
-    await draw(ctxs[value[0]], value.slice(1));
+    await draw(ctxs[+value[0]], value.slice(1));
     // @ts-ignore
     xor(...ctxs);
   });
