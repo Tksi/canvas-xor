@@ -6,8 +6,24 @@
     <title>Canvas</title>
   </head>
   <body>
-    <canvas width="1024px" height="1024px"></canvas>
-    <canvas width="1024px" height="1024px"></canvas>
+    <span class="container">
+      <canvas width="1024px" height="1024px"></canvas>
+      <select name="pref">
+        <option value="0moutain.webp">moutain.webp</option>
+        <option value="0red_apple.webp">red_apple.webp</option>
+        <option value="0green_apple.webp">green_apple.webp</option>
+        <option value="0noise">Random Noise</option>
+      </select>
+    </span>
+    <span class="container">
+      <canvas width="1024px" height="1024px"></canvas>
+      <select name="pref">
+        <option value="1moutain.webp">moutain.webp</option>
+        <option value="1red_apple.webp" selected>red_apple.webp</option>
+        <option value="1green_apple.webp">green_apple.webp</option>
+        <option value="1noise">Random Noise</option>
+      </select>
+    </span>
     <canvas width="1024px" height="1024px"></canvas>
     <h1 id="timer"></h1>
     <script type="module" src="/src/main.ts"></script>

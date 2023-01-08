@@ -1,7 +1,7 @@
 *,
 *::before,
 *::after {
-  margin: 0;
+  /* margin: 0; */
   padding: 0;
   box-sizing: border-box;
 }
@@ -14,4 +14,16 @@ canvas {
   width: 256px;
   height: 256px;
   border: 4px solid;
+}
+
+.container {
+  display: inline-flex;
+  width: 256px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+select {
+  margin: 0.5rem;
+  font-size: 1rem;
 }
